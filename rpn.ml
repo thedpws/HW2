@@ -6,38 +6,31 @@
  * Missing operators / empty stack (mismatched rpn)
  * bad tokens
  *)
+open Tokenize
+
+(* operate : String op -> String f1 -> String f2 -> String result *)
+let operate op f1 f2 = match op with
+    | "+" -> string_of_float(float_of_string f1 +. float_of_string f2)
+    | "-" -> string_of_float(float_of_string f1 -. float_of_string f2)
+    | "*" -> string_of_float(float_of_string f1 *. float_of_string f2)
+    | "/" -> string_of_float(float_of_string f1 /. float_of_string f2)
+    | "^" -> string_of_float(float_of_string f1 ** float_of_string f2)
+    | _   -> "1.0"
+
+(* [Token] -> [Token] -> [Token] *)
 let rec rpn numbers unparsed = match unparsed with
     | []            -> numbers
-    | "+"::xs       ->  
-                        let operand1 = List.hd numbers in
-                        let operand2 = List.hd (List.tl numbers) in
-                        let numbers2 = (string_of_float(float_of_string operand1 +. float_of_string operand2))::(List.tl (List.tl numbers)) in
-                    let unparsed2 = xs in
-                    rpn numbers2 unparsed2
-    | "-"::xs       ->  
-                        let operand1 = List.hd numbers in
-                        let operand2 = List.hd (List.tl numbers) in
-                        let numbers2 = (string_of_float(float_of_string operand2 -. float_of_string operand1))::(List.tl (List.tl numbers)) in
-                    let unparsed2 = xs in
-                    rpn numbers2 unparsed2
-    | "^"::xs       ->  
-                        let operand1 = List.hd numbers in
-                        let operand2 = List.hd (List.tl numbers) in
-                        let numbers2 = (string_of_float(float_of_string operand2 **float_of_string operand1))::(List.tl (List.tl numbers)) in
-                    let unparsed2 = xs in
-                    rpn numbers2 unparsed2
-    | "*"::xs       ->  
-                        let operand1 = List.hd numbers in
-                        let operand2 = List.hd (List.tl numbers) in
-                        let numbers2 = (string_of_float(float_of_string operand1 *. float_of_string operand2))::(List.tl (List.tl numbers)) in
-                    let unparsed2 = xs in
-                    rpn numbers2 unparsed2
-    | "/"::xs       ->  
-                        let operand1 = List.hd numbers in
-                        let operand2 = List.hd (List.tl numbers) in
-                        let numbers2 = (string_of_float(float_of_string operand2 /. float_of_string operand1))::(List.tl (List.tl numbers)) in
-                    let unparsed2 = xs in
-                    rpn numbers2 unparsed2
+    | Tokenize.Op (op)::xs       ->  
+                    if (List.length numbers < 2) then (
+                            print_endline "Not enough operands";
+                            numbers @ unparsed
+                    ) else (
+                        let Tokenize.Value (operand1) = List.hd numbers in
+                        let Tokenize.Value (operand2) = List.hd (List.tl numbers) in
+                        let numbers2 = (Tokenize.Value (operate op operand2 operand1) )::(List.tl (List.tl numbers)) in
+                        let unparsed2 = xs in
+                        rpn numbers2 unparsed2
+                    )
     | _             -> 
                         let numbers2 = (List.hd unparsed) :: numbers in
                         let unparsed2 = List.tl unparsed in
@@ -53,13 +46,3 @@ let hard =  ["5"; "6"; "5";"+"; "+"]
 let easy1 = ["-2"; "-6"; "-"]
 let easy =  ["5"; "6"; "+"]
 
-let rec print_list = function 
-        [] -> ()
-      | e::l -> print_endline e ; print_list l
-
-let input = read_line()
-let tokenized_input = Str.split (Str.regexp " +") input
-
-let main () = print_list (rpn [] tokenized_input)
-
-let _ = main ()
