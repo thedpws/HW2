@@ -6,3 +6,10 @@
 16
 4
 11
+5
+Error: Bad RPN expression
+Error: Invalid token "f" at word 2
+Error: Bad RPN expression
+Error: Invalid token "f" at word 0
+Stack found empty! Error: Bad RPN expression
+Stack found empty!
