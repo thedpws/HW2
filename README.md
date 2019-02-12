@@ -15,5 +15,6 @@
 * Tokens are delimited by at least 1 space character.
 * User input is on a single line only
 * Only words allowed are numbers and operators
+* Stack has 1 element -> print result
 
 
