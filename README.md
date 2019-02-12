@@ -11,6 +11,9 @@
 * Error handling (invalid input)
 * If stack ends with 1 element, prints out result, else prints error
 
+## What doesn't work
+* Unit test "test.ml"
+
 ## Assumptions
 * Tokens are delimited by at least 1 space character.
 * User input is on a single line only
