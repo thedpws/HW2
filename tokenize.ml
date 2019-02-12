@@ -29,3 +29,9 @@ let rec validate tokens i = match tokens with
     | Invalid s::ss -> print_endline  ("Error: invalid token \"" ^ s ^ "\" at word " ^ (string_of_int i)) ; validate ss (i+1) && false
     | Op s::ss      -> validate ss (i+1)
     | Value s::ss   -> validate ss (i+1)
+
+let rec one_value ls i = match ls with
+    | []            -> i == 1
+    | Value v::vs   -> one_value vs (i+1)
+    | _             -> false
+

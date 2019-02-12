@@ -15,7 +15,7 @@ let rec rpn numbers unread = match unread with
     | Tokenize.Op (op)::xs      ->  
                     if (List.length numbers < 2) then (
                             (* Stack is empty *)
-                            print_endline "Not enough operands";
+                            print_endline "Stack found empty!";
                             numbers @ unread
                     ) else (
                             (* Operate on top 2 elems from list and operate on altered list *)
