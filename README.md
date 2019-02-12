@@ -19,5 +19,6 @@
 * User input is on a single line only
 * Only words allowed are numbers and operators
 * Stack has 1 element -> print result
+* Input numerical values are not in exponential / rational form.
 
 
