@@ -1,6 +1,6 @@
 (* Necessary constants *)
 let value_regex = Str.regexp "[-]?[0-9]+[\\.]?[0-9]*$"
-let op_regex = Str.regexp "[+-\\*\\^/]$"
+let op_regex = Str.regexp "[+-/\*^]$"
 
 (* Matching strings on regex *)
 let is_value s = Str.string_match value_regex s 0

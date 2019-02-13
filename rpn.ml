@@ -11,11 +11,19 @@ let operate op f1 f2 = match op with
 
 (* rpn : [Token] -> [Token] -> [Token] *)
 let rec rpn numbers unread = match unread with
-    | []                        -> numbers
+    | []                        -> 
+                    if (List.length numbers > 1) then print_endline "Error: not enough operators.";
+                    numbers
     | Tokenize.Op (op)::xs      ->  
-                    if (List.length numbers < 2) then (
+                    if (List.length numbers == 1) then (
+                            (* Stack has only 1 operand *)
+                            let Tokenize.Value (operand) = List.hd numbers in
+                            print_endline ("Error: Missing operand in subexpression: " ^ operand ^ " " ^op);
+                            numbers @ unread
+                    )
+                    else if (List.length numbers < 1) then (
                             (* Stack is empty *)
-                            print_endline "Stack found empty!";
+                            print_endline ("Error: No operands available for operator: " ^ op);
                             numbers @ unread
                     ) else (
                             (* Operate on top 2 elems from list and operate on altered list *)

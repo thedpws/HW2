@@ -21,11 +21,18 @@ let input_is_valid = Tokenize.validate input_tokenized 0
 (* Evaluate valid input *)
 let input_evaluated = if (input_is_valid) then Rpn.rpn [] input_tokenized else []
 
-let has_final_value = Tokenize.one_value input_evaluated 0
 (* Driver *)
+        (* if no expression (list is []) print no rpn expression *)
+        (* else if bad expression, print bad expression *)
+        (* more than 1 elem in stack -> bad *)
+        (* opertor in stack -> bad *)
+
 let main () =
-    if (input_is_valid == false) then ()
-    else if (List.length input_evaluated != 1) then print_endline "Error: Bad RPN expression"
-    else print_list input_evaluated
+    print_string "Stack: ";
+    print_list (input_evaluated);
+    if not input_is_valid then print_endline "Exit: invalid tokens"
+    else if (List.length input_evaluated == 0) then print_endline "Exit: No RPN expression provided"
+    else if (List.length input_evaluated != 1) then print_endline "Exit: Bad RPN expression"
+    else () (* Good exit *)
 
 let _ = main ()

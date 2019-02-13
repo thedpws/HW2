@@ -1,15 +1,18 @@
-2 6 - 4 +
-2 5 8 - -
-2 6 + 4 +
-5 5 3 * +
-2 3 4 + 5 6 - - *
-5 6 5 + +
--2 -6 -
-5 6 +
-5
+TEST CASE 1:    2 6 - 4 +
+TEST CASE 2:    2 5 8 - -
+TEST CASE 3:    2 6 + 4 +
+TEST CASE 4:    5 5 3 * +
+TEST CASE 5:    2 3 4 + 5 6 - - *
+TEST CASE 6:    5 6 5 + +
+TEST CASE 7:    -2 -6 -
+TEST CASE 8:    5 6 +
+TEST CASE 9:    5
+TEST CASE 10:    
+TEST CASE 11:   4 6 f
+TEST CASE 12:   5 4
+TEST CASE 13:   f
+TEST CASE 14:   4 -
+TEST CASE 15:   5 4 =
+TEST CASE 16:   5 -1 ^
+TEST CASE 17:   10. 10.0. *
 
-4 6 f
-5 4
-f
-4 -
--

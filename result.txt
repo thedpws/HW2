@@ -1,15 +1,17 @@
-0
-5
-12
-20
-16
-16
-4
-11
-5
-Error: Bad RPN expression
-Error: Invalid token "f" at word 2
-Error: Bad RPN expression
-Error: Invalid token "f" at word 0
-Stack found empty! Error: Bad RPN expression
-Stack found empty!
+TEST CASE 1:    Stack: 0.
+TEST CASE 2:    Stack: 5.
+TEST CASE 3:    Stack: 12.
+TEST CASE 4:    Stack: 20.
+TEST CASE 5:    Stack: 16.
+TEST CASE 6:    Stack: 16.
+TEST CASE 7:    Stack: 4.
+TEST CASE 8:    Stack: 11.
+TEST CASE 9:    Stack: 5.
+TEST CASE 10:   Stack: Exit: No RPN expression provided
+TEST CASE 11:   Error: invalid token "f" at word 2 Stack: Exit: invalid tokens
+TEST CASE 12:   Error: not enough operators. Stack: 4 5 Exit: Bad RPN expression
+TEST CASE 13:   Error: invalid token "f" at word 0 Stack: Exit: invalid tokens
+TEST CASE 14:   Error: Missing operand in subexpression: 4 - Stack: 4 - Exit: Bad RPN expression
+TEST CASE 15:   Stack: 0.2
+TEST CASE 16    Stack: 0.2
+TEST CASE 17:   Error: invalid token "10.0." at word 1 Stack: Exit: invalid tokens
