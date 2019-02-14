@@ -3,10 +3,12 @@
 
 (* print_list : ['a] -> *print* *)
 let rec print_list = function
-        [] -> print_endline ""; ()
-    | Tokenize.Value (e)::l -> print_string (e ^ " ") ; print_list l
-    | Tokenize.Op(e)::l                  -> print_string (e ^ " ") ; print_list l
-    | Tokenize.Invalid(e)::l -> print_string (e ^ " ") ; print_list l
+  [] -> print_endline ""; ()
+  | Tokenize.Value (e)::l -> 
+     print_string (e ^ " ") ; 
+     print_list l
+  | Tokenize.Op(e)::l -> print_string (e ^ " ") ; print_list l
+  | Tokenize.Invalid(e)::l -> print_string (e ^ " ") ; print_list l
 
 (* take in user input *)
 let input = read_line()
