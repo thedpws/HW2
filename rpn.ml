@@ -1,39 +1,34 @@
-open Tokenize
+type token =
+  | Num of float
+  | Op of string
+  | TError of string
+  
+let toToken (str: string) : token =
+  match str with
+  | "+" | "-" | "*" | "/" -> Op(str)| _ -> 
+    let f=float_of_string_opt(str) in
+    match f with
+    | Some(flt) -> Num(flt)
+    | None -> TError(str)
 
-(* operate : String op -> String f1 -> String f2 -> String result *)
-let operate op f1 f2 = match op with
-  | "+" -> string_of_float(float_of_string f1 +. float_of_string f2)
-  | "-" -> string_of_float(float_of_string f1 -. float_of_string f2)
-  | "*" -> string_of_float(float_of_string f1 *. float_of_string f2)
-  | "/" -> string_of_float(float_of_string f1 /. float_of_string f2)
-  | "^" -> string_of_float(float_of_string f1 ** float_of_string f2)
-  | _   -> "1.0"
+type state =
+  | MyStack of float list
+  | SError of string
 
-(* rpn : [Token] -> [Token] -> [Token] *)
-let rec rpn numbers unread = match unread with
-  | [] -> 
-    if List.length numbers > 1  then 
-      print_endline "Error: not enough operators.";
-      numbers
-  | Tokenize.Op (op)::xs ->  
-      if (List.length numbers == 1) then (
-        (* Stack has only 1 operand *)
-        let Tokenize.Value (operand) = List.hd numbers in
-        print_endline ("Error: Missing operand in subexpression: "^operand^" "^op);
-        numbers @ unread
-      ) else if (List.length numbers < 1) then (
-        (* Stack is empty *)
-        print_endline ("Error: No operands available for operator: " ^ op);
-        numbers @ unread
-      ) else (
-        (* Operate on top 2 elems from list and operate on altered list *)
-        let Tokenize.Value (operand1) = List.hd numbers in
-        let Tokenize.Value (operand2) = List.hd (List.tl numbers) in
-        let numbers2 = (Tokenize.Value (operate op operand2 operand1) )::(List.tl (List.tl numbers)) in
-        let unread2 = xs in
-        rpn numbers2 unread2
-      ) (* end ELSE *)
-  | _  -> 
-        let numbers2 = (List.hd unread) :: numbers in
-        let unread2 = List.tl unread in
-        rpn numbers2 unread2
+let evalOp (s: string) (op1: float)  (op2: float) : float =
+  match s with
+  | "+" -> op1+.op2
+  | _ -> 0.0(*implement all operators*)
+
+let nextState (st: state) (t: token) : state =
+  match st with
+  | SError(str) -> st
+  | MyStack(lst) ->match t with
+  | Num(f) -> MyStack(f :: lst)
+  | Op(s) -> (match lst with
+  | op2::op1::tail -> MyStack( evalOp s op1 op2 :: tail)
+  | _ -> SError("Not enough arguments for " ^ s))
+  | TError(s) -> SError("Unknown token " ^ s)
+  
+let procRPN str =
+    str |> String.split_on_char ' ' |> List.map toToken |> List.fold_left nextState (MyStack [])(*Finish testing for correctness of final stateP
