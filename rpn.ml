@@ -17,16 +17,16 @@ let rec rpn numbers unread = match unread with
       numbers
   | Tokenize.Op (op)::xs ->  
       if (List.length numbers == 1) then (
-        (* Stack has only 1 operand *)
+        (* Stack has only 1 operand. Print error. *)
         let Tokenize.Value (operand) = List.hd numbers in
         print_endline ("Error: Missing operand in subexpression: "^operand^" "^op);
         numbers @ unread
       ) else if (List.length numbers < 1) then (
-        (* Stack is empty *)
+        (* Stack is empty. Print error. *)
         print_endline ("Error: No operands available for operator: " ^ op);
         numbers @ unread
       ) else (
-        (* Operate on top 2 elems from list and operate on altered list *)
+        (* Operate on top 2 elems from list, push to list, and recurse on altered list *)
         let Tokenize.Value (operand1) = List.hd numbers in
         let Tokenize.Value (operand2) = List.hd (List.tl numbers) in
         let numbers2 = (Tokenize.Value (operate op operand2 operand1) )::(List.tl (List.tl numbers)) in
